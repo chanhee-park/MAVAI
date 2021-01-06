@@ -1,0 +1,10 @@
+body {
+  background: #ccc;
+  padding: 5px;
+}
+
+.app {
+  width: 1920px;
+  height: 1080px;
+  background: #fff;
+}
