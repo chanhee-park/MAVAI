@@ -1,13 +1,13 @@
 function App(props) {
   return (
     <div className="app">
-      <Scatters />
+      <Scatters data={props.data} />
       <Table />
     </div>
   );
 }
 
 ReactDOM.render(
-  App({}),
+  App({ data: data }),
   document.getElementById('root')
 );
