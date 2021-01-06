@@ -1,38 +1,52 @@
 function getRandomData() {
-  const ret = [];
-  const instanceSize = getRandomInt(100, 1000);
-  const featureSize = getRandomInt(8, 12);
+  const instanceSize = getRandomInt(100, 300);
+  const featureSize = getRandomInt(8, 16);
+  const instances = [];
+  const features = [];
+
   for (let i = 1; i <= instanceSize; i++) {
-    const instance = { name: `i-${i}` };
+    const instance = {};
+    instance['name'] = `i-${i}`;
+    instance['real'] = getRandomInt(0, 100);
+    instance['pred'] = instance['real'] * getRandomNumber(0.75, 1.25); 
+
+    // random features
     for (let f = 1; f <= featureSize; f++) {
-      const type = Math.random();
+      const featureName = `f-${f}`;
+      let type = Math.random();
       let value = undefined;
-      if (type < 0.25) {
-        value = getRandomInt(
-          getRandomInt(-100, 0),
-          getRandomInt(10, 100)
-        );
+      if (type < 10.25) {
+        type = 'number'
+        value = getRandomInt(getRandomInt(-100, 0), getRandomInt(10, 100));
       } else if (type < 0.40) {
-        value = getRandomNumber(
-          getRandomInt(-100, 0),
-          getRandomInt(10, 100)
-        );
+        type = 'number'
+        value = getRandomNumber(getRandomInt(-100, 0), getRandomInt(10, 100));
       } else if (type < 0.50) {
+        type = 'number'
         value = getRandomNumber(0, 1);
       } else if (type < 0.75) {
+        type = 'category'
         value = getRandomValue(['A', 'B', 'C']);
       } else if (type < 0.85) {
+        type = 'category'
         value = getRandomValue(['D', 'E', 'F', 'G', 'H']);
       } else {
+        type = 'boolean';
         value = getRandomBool(getRandomNumber(0, 1));
       }
-      instance[`f-${f}`] = value;
+      instance[featureName] = value;
+      if (i === 1) {
+        features.push({ name: featureName, type: type });
+      }
     }
-    instance['real'] = getRandomBool(0.5);
-    instance['pred'] = getRandomBool(0.9) ? instance['real'] : !instance['real'];
-    ret.push(instance);
+    instances.push(instance);
   }
-  return ret;
+  const meta = {
+    features: features,
+    target: "real",
+    predict: "pred"
+  }
+  return { instances, meta };
 }
 
 /**

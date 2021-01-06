@@ -1,13 +1,13 @@
-function App(props) {
+function App({ instances, meta }) {
   return (
     <div className="app">
-      <Scatters data={props.data} />
+      <Scatters instances={instances} meta={meta} />
       <Table />
     </div>
   );
 }
 
 ReactDOM.render(
-  App({ data: data }),
+  App({ instances: data.instances, meta: data.meta }),
   document.getElementById('root')
 );
