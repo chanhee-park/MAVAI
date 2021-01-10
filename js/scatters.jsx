@@ -2,13 +2,16 @@ function Scatters({ instances, meta }) {
   return (
     <div className="vis-component vis-component__scatters">
       {meta.features.map(feature =>
-        (<div key={feature.name}>
-          <ScatterPlotWrapper instances={instances} meta={meta} feature={feature} />
-        </div>))}
+      (<div key={feature.name}>
+        <ScatterPlotWrapper instances={instances} meta={meta} feature={feature} />
+      </div>))}
     </div>
   )
 }
 
+// wrapper는 자료형에 따라 다른 그래프를 띄우기 위한 도구로 사용할 예정임
+// 숫자, 종류 -> 기본 스캐터 플롯 그림
+// 종류 -> 박스플롯 추가
 function ScatterPlotWrapper({ instances, meta, feature }) {
   return (
     <div className="scatter_plot_wrapper">
@@ -53,6 +56,12 @@ class ScatterPlot extends React.Component {
       .domain([minY, maxY])
       .range([padding, padding + graphSize]);
 
+    const scaleDiff = d3.scaleLinear()
+      .domain([
+        this.props.meta.minmax.diff.min,
+        this.props.meta.minmax.diff.max])
+      .range([0, 1]);
+
     // draw axis
     svg.append('line')
       .attr('x1', padding)
@@ -81,10 +90,10 @@ class ScatterPlot extends React.Component {
         x: scaleX(instance[this.props.feature.name]),
         y: scaleY(instance[this.props.meta.predict])
       }
-      const diff = target.y - predict.y;
-      // TODO: use variable for values, 
-      // TODO: use sequential color-map for instances
-      const color = diff > 0 ? "#A00" : "#00A";
+
+      // get point color
+      const diff = instance[this.props.meta.predict] - instance[this.props.meta.target];
+      const color = colormap(scaleDiff(diff));
 
       // draw
       svg.append('circle')
@@ -106,14 +115,14 @@ class ScatterPlot extends React.Component {
 
   getMinMax() {
     return {
-      'feature': getMinMaxValue(this.props.instances, this.props.feature.name),
-      'target': getMinMaxValue(this.props.instances, this.props.meta.target),
-      'predict': getMinMaxValue(this.props.instances, this.props.meta.predict),
+      'feature': getMinMaxNumerical(this.props.instances, this.props.feature.name),
+      'target': getMinMaxNumerical(this.props.instances, this.props.meta.target),
+      'predict': getMinMaxNumerical(this.props.instances, this.props.meta.predict),
     }
   }
 
   getSvgId() {
-    return `scatter_plot_${this.props.feature.name}`;
+    return `scatter-plot__${this.props.feature.name}`;
   }
 
   render() {

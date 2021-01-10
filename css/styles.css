@@ -29,11 +29,12 @@ svg {
 .vis-component {
   border: 1px solid #aaa;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .vis-component__scatters {
   grid-area: 1 / 1 / 3 / 2;
+  overflow-y: scroll;
 }
 
 .vis-component__pcp {
@@ -43,6 +44,8 @@ svg {
 .vis-component__table {
   grid-area: 2 / 2 / 3 / 3;
 }
+
+/* scatter */
 
 .scatter_plot_wrapper {
   padding: 10px;
@@ -54,6 +57,9 @@ svg {
   height: 360px;
   margin: auto;
 }
+
+/* parallel coordinates */
+
 
 /* scrollbar */
 
