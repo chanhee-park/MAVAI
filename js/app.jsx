@@ -1,8 +1,9 @@
 function App({ instances, meta }) {
   return (
     <div className="app">
-      <Scatters instances={instances} meta={meta} />
-      <Table />
+        <Scatters instances={instances} meta={meta} />
+        <PCP />
+        <Table />
     </div>
   );
 }

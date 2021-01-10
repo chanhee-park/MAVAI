@@ -1,6 +1,6 @@
 function Table(props) {
   return (
-    <div className="block table">
+    <div className="vis-component vis-component__table">
 
     </div>
   )

@@ -1,6 +1,6 @@
 function Scatters({ instances, meta }) {
   return (
-    <div className="block scatters">
+    <div className="vis-component vis-component__scatters">
       {meta.features.map(feature =>
         (<div key={feature.name}>
           <ScatterPlotWrapper instances={instances} meta={meta} feature={feature} />
@@ -82,7 +82,9 @@ class ScatterPlot extends React.Component {
         y: scaleY(instance[this.props.meta.predict])
       }
       const diff = target.y - predict.y;
-      const color = diff > 0 ? "#00A" : "#A00";
+      // TODO: use variable for values, 
+      // TODO: use sequential color-map for instances
+      const color = diff > 0 ? "#A00" : "#00A";
 
       // draw
       svg.append('circle')

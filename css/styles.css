@@ -13,34 +13,55 @@ svg {
   height: 100%;
 }
 
-::-webkit-scrollbar {
-  /* display: none; */
-}
-
 .app {
   background: #fff;
-  width: 1920px;
-  height: 1080px;
+  width: 2560px;
+  height: 1600px;
   margin: auto;
   padding: 16px;
   display: grid;
   grid-template-columns: 400px 1fr;
-  column-gap: 16px;
+  grid-template-rows: 400px 1fr;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
 }
 
-.block {
+.vis-component {
   border: 1px solid #aaa;
-  overflow-y: scroll;
   overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.vis-component__scatters {
+  grid-area: 1 / 1 / 3 / 2;
+}
+
+.vis-component__pcp {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.vis-component__table {
+  grid-area: 2 / 2 / 3 / 3;
 }
 
 .scatter_plot_wrapper {
-  padding: 20px;
-  margin-bottom: 30px;
+  padding: 10px;
+  margin: 20px auto;
 }
 
 .visualization.scatter_plot {
-  width: 340px;
-  height: 340px;
+  width: 360px;
+  height: 360px;
   margin: auto;
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #aaa;
 }
