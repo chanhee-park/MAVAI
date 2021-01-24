@@ -1,54 +1,3 @@
-function getRandomData() {
-  const instanceSize = getRandomInt(100, 300);
-  const featureSize = getRandomInt(8, 16);
-  const instances = [];
-  const features = [];
-
-  for (let i = 1; i <= instanceSize; i++) {
-    const instance = {};
-    instance['name'] = `i-${i}`;
-    instance['real'] = getRandomInt(0, 100);
-    instance['pred'] = instance['real'] * getRandomNumber(0.75, 1.25); 
-
-    // random features
-    for (let f = 1; f <= featureSize; f++) {
-      const featureName = `f-${f}`;
-      let type = Math.random();
-      let value = undefined;
-      if (type < 10.25) {
-        type = 'number'
-        value = getRandomInt(getRandomInt(-100, 0), getRandomInt(10, 100));
-      } else if (type < 0.40) {
-        type = 'number'
-        value = getRandomNumber(getRandomInt(-100, 0), getRandomInt(10, 100));
-      } else if (type < 0.50) {
-        type = 'number'
-        value = getRandomNumber(0, 1);
-      } else if (type < 0.75) {
-        type = 'category'
-        value = getRandomValue(['A', 'B', 'C']);
-      } else if (type < 0.85) {
-        type = 'category'
-        value = getRandomValue(['D', 'E', 'F', 'G', 'H']);
-      } else {
-        type = 'boolean';
-        value = getRandomBool(getRandomNumber(0, 1));
-      }
-      instance[featureName] = value;
-      if (i === 1) {
-        features.push({ name: featureName, type: type });
-      }
-    }
-    instances.push(instance);
-  }
-  const meta = {
-    features: features,
-    target: "real",
-    predict: "pred"
-  }
-  return { instances, meta };
-}
-
 /**
  * Get random intger between min and max (uniform random)
  *  - Including the minimum value
@@ -75,11 +24,11 @@ function getRandomNumber(min, max) {
 
 /**
  * get random value from an array (unifrom random)
- * @param {Array} values 
+ * @param {Array} items 
  */
-function getRandomValue(values) {
-  const randomindex = getRandomInt(0, values.length)
-  return values[randomindex];
+function getRandomItem(items) {
+  const randomindex = getRandomInt(0, items.length)
+  return items[randomindex];
 }
 
 /**

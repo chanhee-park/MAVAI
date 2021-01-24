@@ -1,7 +1,5 @@
-const data = getRandomData();
-data.meta.minmax = getMinMaxAll(data.instances, data.meta);
-
 function getMinMaxAll(instances, meta) {
+  console.log(instances, meta)
   // 현재는 수치형 데이터만 고려함
   const ret = {};
   meta.features.forEach(feature => {
@@ -38,10 +36,10 @@ const colormap = d3.interpolateRdYlBu;
  * data: {
  *   instances: [object, ...]
  *   meta: {
- *     featurs: [{name: string, type: string(number, category, boolean)}, ...]
+ *     features: [{name: string, type: string(number, category, boolean)}, ...]
  *     target: string,
  *     predict: string,
- *     minmax: {feature_name: {min: number, max: number}}
+ *     minmax: {feature_name: {min: number, max: number, diff: number}}
  *   }
  * }
  */

@@ -1,4 +1,6 @@
 function App({ instances, meta }) {
+  meta.minmax = getMinMaxAll(instances, meta);
+
   return (
     <div className="app">
       <Scatters instances={instances} meta={meta} />
@@ -9,6 +11,7 @@ function App({ instances, meta }) {
 }
 
 ReactDOM.render(
-  App({ instances: data.instances, meta: data.meta }),
+  App({ instances: instances, meta: meta }),
   document.getElementById('root')
 );
+
